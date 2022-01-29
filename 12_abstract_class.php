@@ -1,6 +1,6 @@
 <?php
 
-class Produk {
+abstract class Produk {
     private $judul, 
             $penulis, 
             $penerbit,
@@ -13,10 +13,6 @@ class Produk {
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
-    }
-    
-    public function getInfoProduk() {
-        return "$this->penulis, $this->penerbit (Rp. $this->harga)";
     }
   
     public function setJudul($judul) {
@@ -47,6 +43,12 @@ class Produk {
     public function getHarga() {
         return $this->harga = $this->harga - ($this->harga * $this->diskon / 100);
     }
+
+    abstract public function getInfoProduk();
+    
+    public function getInfo() {
+        return "$this->penulis, $this->penerbit (Rp. $this->harga)";
+    }
 }
 
 class Komik extends Produk {
@@ -59,7 +61,7 @@ class Komik extends Produk {
     }
 
     public function getInfoProduk() {
-        return "Komik : " . parent::getInfoProduk() ." ~ $this->jmlHalaman halaman";
+        return "Komik : " . $this->getInfo() ." ~ $this->jmlHalaman halaman";
     }
 }
 class Game extends Produk {
@@ -72,7 +74,7 @@ class Game extends Produk {
     }
     
     public function getInfoProduk() {
-        return "Game : " . parent::getInfoProduk() . " ~ $this->waktuMain jam";
+        return "Game : " . $this->getInfo() . " ~ $this->waktuMain jam";
     }
 
     public function setDiskon( $diskon ) {
@@ -81,13 +83,27 @@ class Game extends Produk {
 }
 
 class CetakInfoProduk {
-    public function cetak( Produk $produk ) {
-        $str = "{$produk->judul} | {$produk->getLabel()} - Rp. {$produk->harga}";
+    public $daftarProduk = array();
+
+    public function tambahProduk(Produk $produk) {
+        $this->daftarProduk[] = $produk;
+    }
+
+    public function cetak() {
+        $str = "DAFTAR PRODUK :  <br>";
+        foreach ($this->daftarProduk as $produk) {
+            $str .= "- {$produk->getInfoProduk()} <br>";
+        }
         return $str;
     }
 }
 
 $produk1 = new Komik("Naruto", "Masashi Kishimoto", "Shonen Jump", 30000, 100);
 $produk2 = new Game("Uncharted", "Neil Druckmann", "Sony Computer", 100000, 50);
+
+$cetakProduk = new CetakInfoProduk();
+$cetakProduk->tambahProduk($produk1);
+$cetakProduk->tambahProduk($produk2);
+echo $cetakProduk->cetak();
 
  
