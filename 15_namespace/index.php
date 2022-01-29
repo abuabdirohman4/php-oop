@@ -11,6 +11,18 @@ require_once 'App/init.php';
 // echo $cetakProduk->cetak();
 
 // new User();
-new App\Produk\User();
+
+// new App\Produk\User();
+// echo "<br>";
+// new App\Service\User();
+
+// Penggunaan Alias (use)
+// use App\Produk\User;
+use App\Service\User as ServiceUser;
+use App\Produk\User as ProductUser;
+
+// new User();
+// echo "<br>";
+new ProductUser();
 echo "<br>";
-new App\Service\User();
+new ServiceUser();
