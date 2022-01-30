@@ -1,17 +1,19 @@
 <?php
 
-// class ContohStatic {
-//     public static $angka = 1;
+class ContohStatic {
+    public static $angka = 1;
 
-//     public static function halo() {
-//         // return "Halo.";
-//         return "Halo " . self::$angka . " Kali";
-//     }
-// }
+    public static function halo() {
+        // return "Halo.";
+        return "Halo " . self::$angka . " Kali";
+    }
+}
 
-// echo ContohStatic::$angka;
-// echo "<br>";
-// echo ContohStatic::halo();
+echo ContohStatic::$angka;
+echo "<br>";
+echo ContohStatic::halo();
+echo "<br>";
+echo "<br>";
 
 // OOP Biasa
 class Contoh {
@@ -25,6 +27,7 @@ class Contoh {
 }
 
 $contoh = new Contoh();
+echo $contoh->halo();
 echo $contoh->halo();
 echo $contoh->halo();
 echo $contoh->halo();
